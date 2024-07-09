@@ -67,6 +67,9 @@ beforeAll(async () => {
 });
 
 afterAll(() => {
+  jest.restoreAllMocks(); // Restaure tous les mocks
+  mongoose.disconnect(); // Déconnexion de Mongoose
+
   // Close the server after all tests
   if (server && server.close) {
     server.close();
