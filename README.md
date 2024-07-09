@@ -1,2 +1,2 @@
-# phototh-que
+# phototheque
 gestion des albums
