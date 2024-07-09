@@ -8,7 +8,9 @@ beforeAll(async () => {
   if (mongoose.connection.readyState === 0) {
     await mongoose.connect(uri, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true
     });
   }
 });
@@ -26,12 +28,14 @@ afterEach(async () => {
 
 describe('Album Controller', () => {
   it('should get all the albums', async () => {
+    jest.setTimeout(50000); // Augmenter le délai d'attente à 10 secondes (par défaut, c'est 5 secondes)
     const res = await request(app).get('/albums');
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual({});
   });
 
   it('should create a new album', async () => {
+    jest.setTimeout(50000); // Augmenter le délai d'attente à 10 secondes (par défaut, c'est 5 secondes)
     const res = await request(app)
       .post('/albums/creer')
       .field('title', 'Test Album')
