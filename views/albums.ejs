@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mes albums</title>
+  <!-- Inclusion de Bootstrap via CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+    .header {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+   <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+      <img src="images/ptt.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+      Photothèque
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Accueil</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="/albums">Albums</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="/photos">Photos</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="header">
+      <h1>Phototheque</h1>
+    </div>
+
+    <% if (editMode) { %>
+      <div class="nouvelle-entite">
+        <h2>Modifier Album</h2>
+        <form action="/albums/modifier/<%= album._id %>" method="POST" enctype="multipart/form-data" class="form-group">
+          <input type="text" name="title" value="<%= album.title %>" required class="form-control mb-2">
+          <label>Images actuelles :</label>
+          <div class="mb-2">
+            <% album.images.forEach(function(image) { %>
+              <img src="/uploads/<%= image %>" alt="<%= image %>" style="width: 100px; margin-right: 10px;">
+            <% }); %>
+          </div>
+          <input type="file" name="images" multiple class="form-control mb-2">
+          <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+      </div>
+    <% } else { %>
+      <div class="nouvelle-entite">
+        <h2>Nouvel Album</h2>
+        <form action="/albums/creer" method="POST" enctype="multipart/form-data" class="form-group">
+          <input type="text" name="title" placeholder="Titre de votre nouvel album" required class="form-control mb-2">
+          <input type="file" name="images" multiple class="form-control mb-2">
+          <button type="submit" class="btn btn-primary">Créer</button>
+        </form>
+      </div>
+    <% } %>
+
+    <div class="liste-entites">
+      <h2>Liste des albums</h2>
+      <ul class="list-group">
+        <% entites.forEach(function(entite) { %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= entite.title %> 
+            <div>
+              <% entite.images.forEach(function(image) { %>
+                <img src="/uploads/<%= image %>" alt="<%= image %>" style="width: 50px; margin-right: 10px;">
+              <% }); %>
+              <a href="/albums/modifier/<%= entite._id %>" class="btn btn-secondary btn-sm">Modifier</a>
+              <form action="/albums/supprimer/<%= entite._id %>" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+              </form>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

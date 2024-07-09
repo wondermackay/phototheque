@@ -1,0 +1,80 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main  # Déclencher le workflow sur les push vers la branche main
+  pull_request:
+    branches:
+      - main  # Déclencher le workflow sur les pull requests vers la branche main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Action pour récupérer le code du repository
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2  # Action pour configurer Node.js
+
+    - name: Install dependencies
+      run: npm install  # Installer les dépendances du projet
+
+    - name: Run tests
+      run: npm test  # Exécuter les tests unitaires avec Jest (à adapter selon votre configuration)
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Action pour récupérer le code du repository
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2  # Action pour configurer Node.js
+
+    - name: Install dependencies
+      run: npm install  # Installer les dépendances du projet
+
+    - name: Build application
+      run: npm run build  # Commande pour construire l'application (à adapter selon votre configuration)
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test, build]  # Dépend des jobs 'test' et 'build'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Action pour récupérer le code du repository
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3  # Action pour configurer l'agent SSH pour le déploiement
+
+    - name: Deploy to production
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'  # Déploiement conditionnel à partir de la branche main
+      run: |
+        ssh user@your-server 'cd /path/to/app && git pull && npm install && npm run build && pm2 restart app'
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [deploy]  # Dépend du job 'deploy'
+
+    steps:
+    - name: Send Slack notification
+      if: failure()  # Envoyer une notification Slack en cas d'échec du déploiement
+      uses: rtCamp/action-slack-notify@v2
+      with:
+        status: failure
+        message: "Failed to deploy to production"
+        channel: your-slack-channel
+        webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    - name: Send Discord notification
+      if: success()  # Envoyer une notification Discord en cas de succès du déploiement
+      uses: Ilshidur/action-discord@v2
+      with:
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        content: "Successfully deployed to production"
+
