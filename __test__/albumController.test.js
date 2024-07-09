@@ -7,7 +7,7 @@ const { app, server } = require('../index');
 const Albums = require('../models/Albums');
 
 beforeAll(async () => {
-  const uri = 'mongodb://localhost:27017/phototeque';
+  const uri = 'mongodb://mongo:27017/phototeque';
   if (mongoose.connection.readyState === 0) {
     await mongoose.connect(uri, {
       useNewUrlParser: true,
