@@ -21,8 +21,9 @@ connectToDatabase().then(async () => {
   const alice = await User.findOne({ firstname: 'Alice-moli' });
   const alb1 = await Albums.findOne({ title: 'bruxells' });
 
-  console.log('alb', alb1);
-  console.log('liste de mes utilisateurs', jean, alice);
+  //--------- A DESCATIVER POUR UN TEST AVEC CONNEXION -------------------
+  // console.log('alb', alb1);
+  // console.log('liste de mes utilisateurs', jean, alice);
 
   // Création de deux articles (commenté car il semble être un exemple)
   // await Post.create({
