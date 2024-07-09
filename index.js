@@ -16,32 +16,11 @@ app.set('view engine', 'ejs');
 
 // Connexion à MongoDB
 connectToDatabase().then(async () => {
-  // Récupération des utilisateurs
-  const jean = await User.findOne({ firstname: 'Jean' });
-  const alice = await User.findOne({ firstname: 'Alice-moli' });
+  // Récupération des albums
+  //--------- A DESCATIVER POUR UN TEST SANS  CONNEXION -------------------
   const alb1 = await Albums.findOne({ title: 'bruxells' });
-
-  //--------- A DESCATIVER POUR UN TEST AVEC CONNEXION -------------------
-  // console.log('alb', alb1);
-  // console.log('liste de mes utilisateurs', jean, alice);
-
-  // Création de deux articles (commenté car il semble être un exemple)
-  // await Post.create({
-  //   title: "Nouvelle version Node.js",
-  //   content: "...",
-  //   status: "PUBLISHED",
-  //   author: jean._id,
-  // });
-
-  // await Post.create({
-  //   title: "Créer un formulaire en HTML",
-  //   content: "...",
-  //   status: "BROUILLON",
-  //   author: alice._id,
-  // });
-
-  // const posts = await Post.find().populate("author");
-  // console.log(posts);
+  console.log('alb', alb1);
+  // --------- A DESCATIVER POUR UN TEST SANS  CONNEXION --------------------
 });
 
 // pour l'affichage de la page d'accueil

@@ -117,3 +117,4 @@ describe('Album Controller', () => {
     expect(albums[0].images[0]).toMatch(/test_image.jpg$/);
   });
 });
+
