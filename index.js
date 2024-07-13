@@ -1,11 +1,9 @@
 const express = require('express');
 const path = require('path');
 const connectToDatabase = require('./database'); // Importer la fonction de connexion
-const User = require('./models/User');
-const Post = require('./models/Post');
+
 const Albums = require('./models/Albums');
-const userRoute = require('./routes/userRoute');
-const postRoute = require('./routes/postRoute');
+
 const albumRoute = require('./routes/albumRoute');
 const photoRoute = require('./routes/photoRoute');
 
@@ -29,8 +27,6 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.use('/', userRoute);
-app.use('/', postRoute);
 app.use('/', albumRoute);
 app.use('/', photoRoute);
 
