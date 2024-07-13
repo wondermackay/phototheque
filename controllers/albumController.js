@@ -26,19 +26,30 @@ exports.getUpdateAlbum = async (req, res) => {
   }
 };
 
-// Créer un nouvel album
+// Route pour créer un nouvel album
 exports.createAlbum = async (req, res) => {
   try {
-    console.log("dsd",req.body)
+    console.log("Body:", req.body); // Vérifiez les données du corps de la requête
+    console.log("Files:", req.files); // Vérifiez les fichiers téléchargés
+
     const { title } = req.body;
     const images = req.files.map(file => file.filename); // Récupérer les noms de fichiers des images téléchargées
-    const newAlbums = new Albums({ title, images });
-    await newAlbums.save();
+
+    console.log("Title:", title);
+    console.log("Images:", images);
+
+    // Créer un nouvel album avec Mongoose
+    const newAlbum = new Albums({ title, images });
+    await newAlbum.save(); // Enregistrer le nouvel album en base de données
+
+    // Redirection vers la liste des albums après la création
     res.redirect('/albums');
   } catch (error) {
+    console.error("Error:", error);
     res.status(500).send({ message: error.message });
   }
 };
+
 
 // Mettre à jour un album
 // Mettre à jour un album

@@ -6,6 +6,7 @@ const multer = require('multer');
 // Configuration de Multer pour le téléchargement de fichiers
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log("in the multer",req.file)
     cb(null, 'uploads/');
   },
   filename: (req, file, cb) => {

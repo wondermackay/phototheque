@@ -1,26 +1,29 @@
-
 const Albums = require('../models/Albums');
 
 exports.getPhotos = async (req, res) => {
   try {
-    let photos = [];
-    const albums = await Albums.find();
+    const { sort, filter } = req.query;
+    let albums = await Albums.find();
 
-    albums.forEach(album => {
-      photos = photos.concat(album.images);
-    });
-
-    if (req.query.sort === 'title') {
-      photos.sort(); // Trie alphabétique des noms de fichiers (titres)
-    } else {
-      photos.sort((a, b) => {
-        const timeA = parseInt(a.split('-')[0], 10);
-        const timeB = parseInt(b.split('-')[0], 10);
-        return timeA - timeB;
-      }); // Trie par date (timestamp)
+    if (sort === 'title' && filter) {
+      albums = albums.filter(album => album.title.toLowerCase().includes(filter.toLowerCase()));
+    } else if (sort === 'date' && filter) {
+      const filterDate = new Date(filter);
+      albums = albums.filter(album => new Date(album.createdAt).toDateString() === filterDate.toDateString());
     }
 
-    res.render('photos', { photos });
+    let message = '';
+    if (albums.length === 0) {
+      if (sort === 'title' && filter) {
+        message = `Aucune photo trouvée avec le titre "${filter}".`;
+      } else if (sort === 'date' && filter) {
+        message = `Aucune photo trouvée à la date "${filter}".`;
+      } else {
+        message = 'Aucune photo trouvée pour ce filtre.';
+      }
+    }
+
+    res.render('photos', { albums, message });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
