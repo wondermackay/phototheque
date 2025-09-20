@@ -1,92 +1,128 @@
-# Photothèque
+# Photothèque 🖼️📂
 
-Bienvenue dans le projet **Photothèque**. Ce projet est une application de gestion de photothèque développée avec Node.js, Express.js, EJS,  MongoDB et Mongoose. Il fournit une API RESTful pour gérer des albums d'images.
+Projet académique (bachelier  en informatique) :  
+Application web pour gérer, trier et visualiser des albums photo.  
+Développée avec **Node.js**, **Express.js**, **EJS**, **MongoDB** et **Mongoose**.  
+Intègre des tests unitaires (Jest), tests d’intégration (Supertest) et un pipeline CI/CD via GitHub Actions.
 
-## Table des matières
+👤 Projet réalisé individuellement
 
-- [Photothèque](#photothèque)
-  - [Table des matières](#table-des-matières)
-  - [Installation](#installation)
-    - [Prérequis](#prérequis)
-    - [Étapes d'installation](#étapes-dinstallation)
-  - [Utilisation](#utilisation)
-  - [Tests](#tests)
-  - [Structure du projet](#structure-du-projet)
-  - [Contributions](#contributions)
-  - [Licence](#licence)
+---
 
-## Installation
+## 🚀 Fonctionnalités principales
 
+- 🏷️ **Gestion complète des albums** : créer, modifier et supprimer des albums contenant plusieurs photos.  
+- 📸 **Visualisation des photos** : aperçu des albums et des images via une interface intuitive.  
+- 🔄 **Tri et filtrage** : trier les albums par date ou par titre, avec un affichage dynamique.  
+- ⚡ **Navigation fluide** : barre de navigation permettant d’accéder à l’accueil, aux albums et aux photos.  
+- ✅ **Tests et qualité** : tests unitaires avec Jest et Supertest, vérification des opérations CRUD.  
+- 🤖 **CI/CD** : pipeline GitHub Actions pour automatiser le déploiement.
+
+---
+
+## 📋 Installation
 
 ### Prérequis
 
-Avant de commencer, assurez-vous d'avoir installé les outils suivants :
+Avant de commencer, assurez-vous d'avoir installé :
 
-- **Node.js** - Téléchargez et installez Node.js à partir de [nodejs.org](https://nodejs.org/)
-- **MongoDB** - Assurez-vous que MongoDB est installé localement ou accessible via une instance Docker.
+- **Node.js** - [nodejs.org](https://nodejs.org/)  
+- **MongoDB** - local ou via Docker  
 
 ### Étapes d'installation
 
 1. **Cloner le repository**
+```bash
+git clone <url-du-repository>
+cd phototheque
+```
+2.Installer les dépendances
+```bash
+npm install
+```
+3.Créer la base de données MongoDB
+Créez une base phototheque et une collection albums.
 
+4.Démarrer l’application
+```bash
+npm start
+```
+L’application sera accessible sur : http://localhost:3000
 
-2. **Installer les dépendances**
- npm install 
+## 🖥️ Utilisation
 
-3. **Creer une base de donne en local sur mongo**
-creer un ebase de donne nome phototeque et une collection alums
- 
-L'application devrait maintenant être accessible à l'adresse `http://localhost:3000`.
+- GET /albums : récupérer tous les albums
+- POST /albums : créer un nouvel album
+- PUT /albums/:id : mettre à jour un album
+- DELETE /albums/:id : supprimer un album
 
-## Utilisation
+### Navigation utilisateur
+- Accueil : page principale
+- Albums : liste des albums existants
+- Photos : visualiser toutes les photos
 
-L'application permet de gérer des albums d'images via une API RESTful. Voici quelques endpoints disponibles :
+## 🛠️ Gestion des albums
 
-- **GET `/albums`** : Récupérer tous les albums.
-- **POST `/albums`** : Créer un nouvel album.
-- **GET `/albums/:id`** : Récupérer un album spécifique par son identifiant.
-- **PUT `/albums/:id`** : Mettre à jour un album existant.
-- **DELETE `/albums/:id`** : Supprimer un album existant.
+### Créer un album
+- Aller sur **Albums**
+- Remplir le formulaire : titre + photos (CTRL + clic pour sélectionner plusieurs images)
+- Cliquer sur **Créer** → confirmation via "Sweet Alert"
 
-Assurez-vous de consulter le code source pour connaître toutes les routes disponibles et leurs fonctionnalités.
+### Modifier un album
+- Cliquer sur le titre de l’album
+- Modifier le nom ou les photos
+- Cliquer sur **Modifier** → vérifier avec l’aperçu
 
-## Tests
+### Supprimer un album
+- Cliquer sur **Supprimer** → l’album est retiré de la liste
 
-Pour exécuter les tests unitaires, utilisez la commande suivante :
-le test est a deux niveau :
+### Visualiser les photos
+- Cliquer sur **Photos** → grille de vignettes par album avec aperçu
 
-1- executer npm test et verifier les logs 
+### Tri et filtres
+- Menu déroulant **Trier par** :
+  - Date : trier par date de création
+  - Titre : trier par ordre alphabétique
+- Message "Aucun filtre appliqué" si aucun album ne correspond
 
-2 - assurer vous d'etre connecté a la base de donné phototeque et avoir la collection albums
-et executer npm test 
+ ## 🧪 Tests
 
+Exécuter les tests unitaires et d’intégration :
+```bash
+npm test
+```
+Remarques : assurez-vous que la base phototheque est active et que la collection albums existe.
 
-Les tests sont écrits avec Jest et Supertest. Ils vérifient le bon fonctionnement des endpoints et des opérations CRUD sur les albums.
+## 📂 Structure du projet
+```bash
+phototheque/
+├── index.js             # Point d'entrée de l'application
+├── models/Album.js      # Modèle Mongoose pour les albums
+├── routes/albums.js     # Routes Express pour les albums
+├── views/               # Templates EJS
+├── public/              # CSS, JS, images
+├── controllers/         # Logique métier
+├── tests/               # Tests Jest & Supertest
+├── package.json
+└── .gitignore
+```
 
-## Structure du projet
+## 👤 Contributeur unique
 
-Le projet suit une structure organisée pour faciliter le développement et la maintenance :
+- Développement complet : backend, frontend, API REST, gestion des albums, interface graphique, tests et intégration.
+- Projet réalisé de manière individuelle.
 
-- **`index.js`** : Point d'entrée de l'application.
-- **`/models/Album.js`** : Modèle Mongoose pour les albums.
-- **`/routes/albums.js`** : Définition des routes Express pour les albums.
-- **`/__tests__/albumController.test.js`** : Tests Jest pour le contrôleur des albums.
+ ## ⚙️ Technologies utilisées
+- Backend : Node.js, Express.js
+- Base de données : MongoDB, Mongoose
+- Frontend : EJS
+- Tests : Jest, Supertest
+- CI/CD : GitHub Actions
+- IDE : VSCode
 
-## Contributions
+ ## 🎯 Conclusion
 
-Les contributions sont les bienvenues! Si vous souhaitez contribuer à ce projet, veuillez suivre ces étapes :
+Cette application fournit une gestion complète et intuitive des albums photo, avec tri dynamique et interface fluide.
+Elle est conçue pour être facile à utiliser tout en restant robuste et testée, adaptée pour des projets académiques ou professionnels.
 
-1. Forker le repository.
-2. Créer une branche pour votre fonctionnalité (`git checkout -b feature/nouvelle-fonctionnalité`).
-3. Commiter vos modifications (`git commit -am 'Ajout d'une nouvelle fonctionnalité'`).
-4. Pousser vers la branche (`git push origin feature/nouvelle-fonctionnalité`).
-5. Ouvrir une Pull Request pour discuter des modifications proposées.
-
-Veuillez vous assurer de respecter le guide de style et les bonnes pratiques de codage.
-
-## Licence
-
-Ce projet est sous licence MIT. Pour plus de détails, consultez le fichier [LICENSE](LICENSE).
-
-
-
+ ##  💡 Feedback : vos retours sont les bienvenus pour améliorer l’expérience utilisateur et enrichir les fonctionnalités.
