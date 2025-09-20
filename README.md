@@ -125,4 +125,5 @@ phototheque/
 Cette application fournit une gestion complète et intuitive des albums photo, avec tri dynamique et interface fluide.
 Elle est conçue pour être facile à utiliser tout en restant robuste et testée, adaptée pour des projets académiques ou professionnels.
 
- ##  💡 Feedback : vos retours sont les bienvenus pour améliorer l’expérience utilisateur et enrichir les fonctionnalités.
+ ##  💡 Feedback 
+ vos retours sont les bienvenus pour améliorer l’expérience utilisateur et enrichir les fonctionnalités.
